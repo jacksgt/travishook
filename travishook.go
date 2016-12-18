@@ -45,7 +45,7 @@ func CheckSignature(rawSignature string, message []byte, server string) (err err
 
 func GetPubKey(server string) (pubKey *rsa.PublicKey, err error) {
 	var rawPubKey string
-	var data TravisAPIConfig
+	var data APIConfig
 
 	/* request (json-encoded) config from API server */
 	response, err := http.Get("https://" + server + "/config")

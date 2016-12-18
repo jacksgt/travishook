@@ -4,7 +4,7 @@ package travishook
 * conforming to Travis CI's "Webhook Delivery Format"
 * https://docs.travis-ci.com/user/notifications/#Webhooks-Delivery-Format
  */
-type Payload struct {
+type WebhookPayload struct {
 	ID             int    `json:"id"`
 	Number         string `json:"number"`
 	Status         int    `json:"status"`
@@ -65,7 +65,7 @@ type Payload struct {
 * conforming to Travis CI's "Verifying Webhook requests"
 * https://docs.travis-ci.com/user/notifications/#Verifying-Webhook-requests
  */
-type TravisAPIConfig struct {
+type APIConfig struct {
 	Config struct {
 		Host        string `json:"host"`
 		ShortenHost string `json:"shorten_host"`

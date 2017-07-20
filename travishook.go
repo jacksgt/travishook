@@ -49,10 +49,10 @@ func GetPubKey(server string) (pubKey *rsa.PublicKey, err error) {
 
 	/* request (json-encoded) config from API server */
 	response, err := http.Get("https://" + server + "/config")
-	defer response.Body.Close()
 	if err != nil {
 		return nil, err
 	}
+	defer response.Body.Close()
 
 	/* read body */
 	body, err := ioutil.ReadAll(response.Body)

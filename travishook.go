@@ -9,10 +9,13 @@ import (
 	"encoding/json"
 	"encoding/pem"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"sync"
 )
 
 var travisciPubKey *rsa.PublicKey
+var loadPubKeyOnce sync.Once
 var defaultServer = "api.travis-ci.org"
 
 func CheckSignature(rawSignature string, message []byte, server string) (err error) {
@@ -23,12 +26,15 @@ func CheckSignature(rawSignature string, message []byte, server string) (err err
 		return err
 	}
 
-	/* obtain public key from Travis CI's servers (if necessary) */
-	if travisciPubKey == nil {
-		travisciPubKey, err = GetPubKey(server)
+	/* obtain public key from Travis CI's servers once */
+	loadPubKeyOnce.Do(func() {
+		travisciPubKey, err = GetPubKey(defaultServer)
 		if err != nil {
-			return err
+			log.Fatalf("Failed to obtain TravisCI Public Key from %s: %v", defaultServer, err)
 		}
+	})
+	if travisciPubKey == nil {
+		return err
 	}
 
 	/* SHA1-hash the payload */

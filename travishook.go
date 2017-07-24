@@ -49,7 +49,7 @@ func CheckSignature(rawSignature string, message []byte, server string) (err err
 	return nil
 }
 
-func GetPubKey(server string) (pubKey *rsa.PublicKey, err error) {
+func GetPubKey(server string) (*rsa.PublicKey, error) {
 	var rawPubKey string
 	var data APIConfig
 
@@ -88,7 +88,7 @@ func GetPubKey(server string) (pubKey *rsa.PublicKey, err error) {
 	}
 
 	/* retrieve public key */
-	pubKey = rsaKey.(*rsa.PublicKey)
+	pubKey := rsaKey.(*rsa.PublicKey)
 
 	return pubKey, nil
 }

@@ -1,5 +1,9 @@
 package travishook
 
+import (
+	"time"
+)
+
 /*
 * conforming to Travis CI's "Webhook Delivery Format"
 * https://docs.travis-ci.com/user/notifications/#Webhooks-Delivery-Format
